@@ -40,7 +40,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
  * Those files can contain any CSS code that gets applied to the editor.
@@ -87,7 +86,7 @@ function Edit(_ref) {
         src: urls[i],
         className: "image",
         alt: "\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u753B\u50CF"
-      }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("figcaption", {
+      }), attributes.showCaption && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("figcaption", {
         className: "block-image-caption"
       }, captions[i])));
     }
@@ -115,10 +114,38 @@ function Edit(_ref) {
     setAttributes({
       mediaID: [],
       imageUrl: [],
-      imageAlt: []
+      imageAlt: [],
+      imageCaption: []
     });
   };
-  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.InspectorControls, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Slider Settings', 'sw_location'),
+    initialOpen: true
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Navigation Button', 'sw_location'),
+    checked: attributes.showNavigationButton,
+    onChange: val => setAttributes({
+      showNavigationButton: val
+    })
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Pagenation', 'sw_location'),
+    checked: attributes.showPagination,
+    onChange: val => setAttributes({
+      showPagination: val
+    })
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Scroll Bar', 'sw_location'),
+    checked: attributes.showScrollbar,
+    onChange: val => setAttributes({
+      showScrollbar: val
+    })
+  })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelRow, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Show Caption', 'sw_location'),
+    checked: attributes.showCaption,
+    onChange: val => setAttributes({
+      showCaption: val
+    })
+  })))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)("div", (0,_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
     className: true
   }, blockProps), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.MediaUploadCheck, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.MediaUpload, {
     multiple: true //複数画像の選択
@@ -136,10 +163,10 @@ function Edit(_ref) {
     }
   })), attributes.imageUrl.length != 0 && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.MediaUploadCheck, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_1__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
     onClick: removeMedia,
-    isLink: true,
+    variant: "link",
     isDestructive: true,
     className: "removeImage"
-  }, "\u753B\u50CF\u3092\u524A\u9664")));
+  }, "\u753B\u50CF\u3092\u524A\u9664"))));
 }
 
 /***/ }),
@@ -221,6 +248,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
 /**
  * The save function defines the way in which the different attributes should
  * be combined into the final markup, which is then serialized by the block
@@ -250,7 +278,9 @@ function save(_ref) {
             className: "card_image",
             src: url[i],
             alt: alt[i]
-          }));
+          }), attributes.showCaption && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+            class: "caption"
+          }, caption[i] ? caption[i] : ""));
         } else {
           img_elm = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
             className: "swiper-slide"
@@ -259,7 +289,9 @@ function save(_ref) {
             src: url[i],
             alt: "",
             "aria-hidden": "true"
-          }));
+          }), attributes.showCaption && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+            class: "caption"
+          }, caption[i] ? caption[i] : ""));
         }
       }
       imagesArray.push(img_elm);
@@ -272,13 +304,13 @@ function save(_ref) {
     className: "swiper"
   }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "swiper-wrapper"
-  }, getImagesSave(attributes.imageUrl, attributes.imageAlt)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, getImagesSave(attributes.imageUrl, attributes.imageAlt, attributes.imageCaption)), attributes.showPagination && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "swiper-pagination"
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }), attributes.showNavigationButton && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "swiper-button-prev"
   }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "swiper-button-next"
-  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  })), attributes.showScrollbar && (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "swiper-scrollbar"
   }))));
 }
@@ -392,7 +424,7 @@ function _extends() {
   \************************/
 /***/ (function(module) {
 
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"itmar/swiper-block","version":"0.1.0","title":"Swiper Block","category":"widgets","icon":"images-alt","description":"複数画像をSwiperで表示するブロックです。","supports":{"html":false},"attributes":{"mediaID":{"type":"array","default":[]},"imageUrl":{"type":"array","default":[]},"imageAlt":{"type":"array","default":[]},"imageCaption":{"type":"array","default":[]}},"textdomain":"swiper-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":2,"name":"itmar/swiper-block","version":"0.1.0","title":"Swiper Block","category":"widgets","icon":"images-alt","description":"複数画像をSwiperで表示するブロックです。","supports":{"html":false},"attributes":{"mediaID":{"type":"array","default":[]},"imageUrl":{"type":"array","default":[]},"imageAlt":{"type":"array","default":[]},"imageCaption":{"type":"array","default":[]},"showNavigationButton":{"type":"boolean","default":true},"showPagination":{"type":"boolean","default":true},"showScrollbar":{"type":"boolean","default":true},"showCaption":{"type":"boolean","default":true}},"textdomain":"swiper-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ })
 

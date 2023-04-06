@@ -38,7 +38,11 @@
     "showScrollbar": {
       "type": "boolean",
       "default": true
-    } 
+    },
+    "showCaption": {
+      "type": "boolean",
+      "default": true
+    }
   },
   "textdomain": "swiper-block",
   "editorScript": "file:./index.js",

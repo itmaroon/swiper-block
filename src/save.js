@@ -5,6 +5,7 @@
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
 import { useBlockProps } from '@wordpress/block-editor';
+import { Fragment } from '@wordpress/element';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -34,7 +35,9 @@ export default function save({ attributes }) {
 									src={ url[i]}
 									alt={ alt[i] }
 							/> 
-							
+							 { attributes.showCaption && 
+                <div class="caption">{ caption[i] ? caption[i] : "" }</div>
+              }
 						</div>
 					);
 				}else{
@@ -45,7 +48,10 @@ export default function save({ attributes }) {
 								src={ url[i] }
 								alt=""
 								aria-hidden="true"
-							/> 
+							/>
+							{ attributes.showCaption && 
+                <div class="caption">{ caption[i] ? caption[i] : "" }</div>
+              } 
 						</div>
 						
 					);
@@ -60,12 +66,21 @@ export default function save({ attributes }) {
 			 <div className="slider-container">
 				<div className="swiper">
 					<div className="swiper-wrapper">  
-						{ getImagesSave( attributes.imageUrl, attributes.imageAlt ) } 
+						{ getImagesSave( attributes.imageUrl, attributes.imageAlt, attributes.imageCaption ) } 
 					</div>
-					<div className="swiper-pagination"></div>
-					<div className="swiper-button-prev"></div>
-					<div className="swiper-button-next"></div>
-					<div className="swiper-scrollbar"></div>
+					{ attributes.showPagination && 
+						<div className="swiper-pagination"></div>
+					}
+					{ attributes.showNavigationButton && 
+						<Fragment>
+							<div className="swiper-button-prev"></div>
+							<div className="swiper-button-next"></div>
+						</Fragment>
+					}
+					{ attributes.showScrollbar && 
+						<div className="swiper-scrollbar"></div>
+					}
+					
 				</div>
 			</div>
 		</div>

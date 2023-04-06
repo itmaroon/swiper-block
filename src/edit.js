@@ -11,9 +11,18 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
-import { MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { Button } from '@wordpress/components';
+import {
+	useBlockProps, 
+	InspectorControls, 
+	MediaUpload, 
+	MediaUploadCheck 
+} from '@wordpress/block-editor';
+import { 
+	Button,
+	PanelBody, 
+	PanelRow, 
+	ToggleControl
+} from '@wordpress/components';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -60,9 +69,12 @@ export default function Edit({ attributes, setAttributes } ) {
 						className='image'
 						alt="アップロード画像"
 					/>
-					<figcaption className='block-image-caption'>
-						{captions[i]}
-					</figcaption>
+					{ attributes.showCaption && 
+						<figcaption className='block-image-caption'>
+							{captions[i]}
+						</figcaption>	
+					}
+									
 				</figure>
 			);			
 		}
@@ -76,7 +88,9 @@ export default function Edit({ attributes, setAttributes } ) {
 					onClick={ open }
 					className="block-container"
 				>
-					{getImages(attributes.imageUrl, attributes.imageCaption)}
+					{
+						getImages(attributes.imageUrl, attributes.imageCaption)
+					}
 				</div>
 				
 			);
@@ -101,31 +115,71 @@ export default function Edit({ attributes, setAttributes } ) {
 			mediaID: [],
 			imageUrl: [],
 			imageAlt: [],
+			imageCaption:[],
 		});
 	};
 
 	return (
-		<div className { ...blockProps }>
-			<MediaUploadCheck>
-				<MediaUpload
-					multiple={ true }  //複数画像の選択
-					gallery={ true }  //追加
-					onSelect={ onSelectImage }
-					allowedTypes={ ['image'] }
-					value={ attributes.mediaID }
-					render={ ({ open }) => getImageButton( open ) }
-				/>
-			</MediaUploadCheck>
-			{ attributes.imageUrl.length != 0  && 
+		<>
+			<InspectorControls>
+				<PanelBody 
+					title={ __( 'Slider Settings', 'sw_location')}
+					initialOpen={true}
+				>
+					<PanelRow>
+						<ToggleControl
+								label={ __( 'Navigation Button', 'sw_location')}
+								checked={ attributes.showNavigationButton }
+								onChange={ (val) => setAttributes({ showNavigationButton: val }) }
+							/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+								label={ __( 'Pagenation', 'sw_location')}
+								checked={ attributes.showPagination }
+								onChange={ (val) => setAttributes({ showPagination: val }) }
+							/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+								label={ __( 'Scroll Bar', 'sw_location')}
+								checked={ attributes.showScrollbar }
+								onChange={ (val) => setAttributes({ showScrollbar: val }) }
+							/>
+					</PanelRow>
+					<PanelRow>
+						<ToggleControl
+								label={ __( 'Show Caption', 'sw_location')}
+								checked={ attributes.showCaption }
+								onChange={ (val) => setAttributes({ showCaption: val }) }
+							/>
+					</PanelRow>
+				</PanelBody>
+			</InspectorControls>
+
+			<div className { ...blockProps }>
 				<MediaUploadCheck>
-					<Button 
-						onClick={removeMedia} 
-						isLink
-						isDestructive 
-						className="removeImage">画像を削除
-					</Button>
+					<MediaUpload
+						multiple={ true }  //複数画像の選択
+						gallery={ true }  //追加
+						onSelect={ onSelectImage }
+						allowedTypes={ ['image'] }
+						value={ attributes.mediaID }
+						render={ ({ open }) => getImageButton( open ) }
+					/>
 				</MediaUploadCheck>
-			}
-		</div>	
+				{ attributes.imageUrl.length != 0  && 
+					<MediaUploadCheck>
+						<Button 
+							onClick={removeMedia} 
+							variant="link"
+							isDestructive 
+							className="removeImage">画像を削除
+						</Button>
+					</MediaUploadCheck>
+				}
+			</div>
+		</>
+			
 	);
 }

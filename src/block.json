@@ -27,7 +27,23 @@
 		"imageCaption": {
 			"type": "array", 
       "default": [] 
-		}
+		},
+		"showNavigationButton": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "showScrollbar": {
+      "type": "boolean",
+      "default": true
+    },
+		"showCaption": {
+      "type": "boolean",
+      "default": true
+    } 
   },
 	"textdomain": "swiper-block",
 	"editorScript": "file:./index.js",
