@@ -6,7 +6,33 @@
  */
 
 .wp-block-itmar-swiper-block {
-	background-color: #21759b;
-	color: #fff;
-	padding: 2px;
+	background-color: #fefefe;
+  color: #666;
+  padding: 10px;
+	.swiper-slide{
+		img{
+			width: 100%;
+			height: auto;
+		}
+	}
+	
+	.block-image-caption{
+		font-size: 12px;
+		text-align: center;
+	}
+	.block-container {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		img{
+			width: 100%;
+			height: auto;
+			max-width: 250px;
+			margin: 10px;
+		}
+	}
+}
+:root {
+  --swiper-navigation-color: #fff;
+  --swiper-pagination-color: #fff;
 }

@@ -1,1 +1,40 @@
-.wp-block-itmar-swiper-block{background-color:#21759b;color:#fff;padding:2px}
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+.wp-block-itmar-swiper-block {
+  background-color: #fefefe;
+  color: #666;
+  padding: 10px;
+}
+.wp-block-itmar-swiper-block .swiper-slide img {
+  width: 100%;
+  height: auto;
+}
+.wp-block-itmar-swiper-block .block-image-caption {
+  font-size: 12px;
+  text-align: center;
+}
+.wp-block-itmar-swiper-block .block-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.wp-block-itmar-swiper-block .block-container img {
+  width: 100%;
+  height: auto;
+  max-width: 250px;
+  margin: 10px;
+}
+
+:root {
+  --swiper-navigation-color: #fff;
+  --swiper-pagination-color: #fff;
+}
+
+/*# sourceMappingURL=style-index.css.map*/

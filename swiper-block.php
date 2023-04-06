@@ -24,3 +24,40 @@ function itmar_swiper_block_block_init() {
 	register_block_type( __DIR__ . '/build' );
 }
 add_action( 'init', 'itmar_swiper_block_block_init' );
+
+//Swiperプラグインの読み込み
+function itmar_swiper_block_add_swiper() {
+  $dir = dirname( __FILE__ );
+  
+  //管理画面以外（フロントエンド側でのみ読み込む）
+  if(! is_admin()) {
+    //Swiper の JavaScript ファイルの読み込み（エンキュー）
+    wp_enqueue_script( 
+      'swiper-slider', 
+      plugins_url( '/assets/swiper-bundle.min.js', __FILE__ ), 
+      array(), 
+      filemtime( "$dir/assets/swiper-bundle.min.js" ),
+      true
+    );
+ 
+    //Swiper を初期化するためのファイルの読み込み（エンキュー）
+    wp_enqueue_script( 
+      'swiper-slider-init', 
+      plugins_url( '/assets/init-swiper.js', __FILE__ ), 
+      //依存ファイルに上記 Swiper の JavaScript を指定 
+      array('swiper-slider'), 
+      filemtime( "$dir/assets/init-swiper.js" ),
+      true
+    );
+ 
+    //Swiper の CSS ファイルの読み込み（エンキュー）
+    wp_enqueue_style(
+      'swipe-style',
+      plugins_url( '/assets/swiper-bundle.min.css', __FILE__ ), 
+      array(),
+      filemtime( "$dir/assets/swiper-bundle.min.css"  )
+    );
+  }
+  
+}
+add_action('enqueue_block_assets', 'itmar_swiper_block_add_swiper');

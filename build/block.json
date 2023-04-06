@@ -5,10 +5,40 @@
   "version": "0.1.0",
   "title": "Swiper Block",
   "category": "widgets",
-  "icon": "smiley",
-  "description": "Example block scaffolded with Create Block tool.",
+  "icon": "images-alt",
+  "description": "複数画像をSwiperで表示するブロックです。",
   "supports": {
     "html": false
+  },
+  "attributes": {
+    "mediaID": {
+      "type": "array",
+      "default": []
+    },
+    "imageUrl": {
+      "type": "array",
+      "default": []
+    },
+    "imageAlt": {
+      "type": "array",
+      "default": []
+    },
+    "imageCaption": {
+      "type": "array",
+      "default": []
+    },
+    "showNavigationButton": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "showScrollbar": {
+      "type": "boolean",
+      "default": true
+    } 
   },
   "textdomain": "swiper-block",
   "editorScript": "file:./index.js",
